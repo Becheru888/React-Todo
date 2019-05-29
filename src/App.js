@@ -21,7 +21,6 @@ const todoList = [
 
 function TheList(props) {
   return <div>
-
     <h1>Todo List:</h1>
     {todoList.map(task => 
       (<div key={task.id} value={task.completed}>{task.taskName}</div>)) 
@@ -72,7 +71,9 @@ addNewTask = () => {
 
   render() {
     return <div>
-      <TheList/>
+       {this.state.theFullList.map(task => 
+      (<div key={task.id} value={task.completed}>{task.taskName}</div>)) 
+    }
     <input value={this.state.taskName} 
           onChange={this.changeHandler}
           type='text'/>
@@ -81,7 +82,6 @@ addNewTask = () => {
     <button onClick={this.clearTask}>Clear Completed</button>       
     </div>
   }
-
 
 }
 
