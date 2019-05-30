@@ -1,5 +1,6 @@
 import React from 'react';
-
+import './components/TodoComponents/Todo.css';
+// import Completed from './components/TodoComponents/Todo.js'
 
 
 const todoList = [
@@ -19,15 +20,15 @@ const todoList = [
 
 
 
-function TheList(props) {
-  return <div>
-    <h1>Todo List:</h1>
-    {todoList.map(task => 
-      (<div key={task.id} value={task.completed}>{task.taskName}</div>)) 
-    }
-  </div>
-}
 
+// function TheList(props) {
+//   return <div>
+//     <h1>Todo List:</h1>
+//     {todoList.map(task => 
+//       (<div key={task.id} value={task.completed}>{task.taskName}</div>)) 
+//     }
+//   </div>
+// }
 
 
 
@@ -65,21 +66,51 @@ addNewTask = () => {
   });
 };
 
+markAsCompleted = (id) => {
+  this.setState(currentState => ({
+    todoList : currentState.theFullList.map(task => {
+      if(task.id === id){
+        task.completed = true
+      };
+      return task
+    })
+  }))
+ 
+}
 
+deleteCompleted = () => {
+  this.setState(currentState => ({
+    todoList: currentState.todoList.filter(task => task.completed)
+  }))
+}
+
+
+// markAsEnemy = id => {
+//   // using setState:
+//   // add a "friendly" of false to the friend object with the given id
+//   this.setState(currentState => ({
+//     friends: currentState.friends.map(friend => {
+//       if (friend.id === id) {
+//         friend.friendly = false;
+//       }
+//       return friend;
+//     }),
+//   }));
+// }
 
 
 
   render() {
-    return <div>
+    return <div className='theform'>
        {this.state.theFullList.map(task => 
-      (<div key={task.id} value={task.completed}>{task.taskName}</div>)) 
+      (<div className='task' onClick={() =>this.markAsCompleted(task.id)} key={task.id} value={task.completed}>{task.taskName}</div>)) 
     }
     <input value={this.state.taskName} 
           onChange={this.changeHandler}
           type='text'/>
 
-    <button onClick={this.addNewTask}>Add Todo</button>
-    <button onClick={this.clearTask}>Clear Completed</button>       
+    <button className='AddButton' onClick={this.addNewTask}>Add Todo</button>
+    <button className='ClearButton' onClick={this.deleteCompleted}>Clear Completed</button>       
     </div>
   }
 
