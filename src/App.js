@@ -82,9 +82,8 @@ markAsCompleted = (id) => {
 
 
 clearCompleted = () => {
-  this.setState(currentState => ({
-    todoList: currentState.theFullList.filter(task => task.completed)
-  }))
+  let newList = this.state.theFullList.filter(task => !task.completed);
+  this.setState({ theFullList: newList });
 }
 
 
