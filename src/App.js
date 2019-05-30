@@ -10,10 +10,20 @@ const todoList = [
     completed: false
   },
   {
-    taskName: 'Bake Cookies',
+    taskName: 'Wash Car',
     id: 1528817084358,
     completed: false
-  }
+  },
+  {
+    taskName: 'Walck the Dog',
+    id: 1528817054358,
+    completed: false
+  },
+  {
+    taskName: 'Sleep at 20:00',
+    id: 1528817184358,
+    completed: false
+  },
 ];
 
 
@@ -34,6 +44,7 @@ const todoList = [
 
 
 class App extends React.Component {
+ 
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
@@ -101,7 +112,6 @@ clearCompleted = () => {
 // }
 
 
-
   render() {
     return <div className='theform'>
        {this.state.theFullList.map(task => 
@@ -118,6 +128,5 @@ clearCompleted = () => {
 
 }
 
-  
 
 export default App;
