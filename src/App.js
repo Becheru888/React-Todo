@@ -75,12 +75,15 @@ markAsCompleted = (id) => {
       return task
     })
   }))
+
+
  
 }
 
-deleteCompleted = () => {
+
+clearCompleted = () => {
   this.setState(currentState => ({
-    todoList: currentState.todoList.filter(task => task.completed)
+    todoList: currentState.theFullList.filter(task => task.completed)
   }))
 }
 
@@ -110,10 +113,12 @@ deleteCompleted = () => {
           type='text'/>
 
     <button className='AddButton' onClick={this.addNewTask}>Add Todo</button>
-    <button className='ClearButton' onClick={this.deleteCompleted}>Clear Completed</button>       
+    <button className='ClearButton' onClick={this.clearCompleted}>Clear Completed</button>       
     </div>
   }
 
 }
+
+  
 
 export default App;
