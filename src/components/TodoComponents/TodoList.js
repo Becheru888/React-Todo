@@ -4,14 +4,16 @@
 import React from "react";
 import Todo from "./Todo";
 
+let id = 0
+
 class TodoList extends React.Component {
-
-
   render() {
     return (
       <div>
-       {this.props.payload.map(todo => <Todo todoElm={todo}/>)} 
-       </div>
+        {this.props.payload.map(todo => (
+          <Todo todoElm={todo} key={id++} isDone={this.props.complete} />
+        ))}
+      </div>
     );
   }
 }

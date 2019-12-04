@@ -2,6 +2,7 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -24,14 +25,13 @@ class App extends React.Component {
 
   handleChange = e => {
     const { name, value } = e.target;
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       newTodo: {
         ...prevState.newTodo,
-      [name]: value
+        [name]: value
       }
     }));
   };
-
 
   handleSubmit = e => {
     e.preventDefault();
@@ -43,15 +43,26 @@ class App extends React.Component {
     this.setState(prevState => ({
       todo: [...prevState.todo, newTask]
     }));
-   console.log(this.state)
   };
 
+  markComplete = (id) => {
+    this.state.todo.map(task => {
+      if(task.id === id){
+        this.setState({
+          todo: [
+            ...this.state.todo,
+            !task.completed ? task.completed = true : task.completed = false
+          ]
+        })
+      }
+    })
+  };
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList payload={this.state.todo} />
+        <TodoList payload={this.state.todo} complete={this.markComplete} />
         <TodoForm change={this.handleChange} submit={this.handleSubmit} />
       </div>
     );
