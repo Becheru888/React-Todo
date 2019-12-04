@@ -19,7 +19,7 @@ class App extends React.Component {
       ],
       newTodo: {
         task: ""
-      }
+      },     
     };
   }
 
@@ -43,6 +43,11 @@ class App extends React.Component {
     this.setState(prevState => ({
       todo: [...prevState.todo, newTask]
     }));
+    this.setState(({
+      newTodo:{
+        task:''
+      }
+    }))
   };
 
   markComplete = (id) => {
@@ -55,6 +60,7 @@ class App extends React.Component {
           ]
         })
       }
+      return true
     })
   };
 
@@ -63,7 +69,7 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList payload={this.state.todo} complete={this.markComplete} />
-        <TodoForm change={this.handleChange} submit={this.handleSubmit} />
+        <TodoForm change={this.handleChange} submit={this.handleSubmit} formValue={this.state.newTodo.task}/>
       </div>
     );
   }
