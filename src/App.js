@@ -2,7 +2,6 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 
-
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -19,7 +18,7 @@ class App extends React.Component {
       ],
       newTodo: {
         task: ""
-      },     
+      }
     };
   }
 
@@ -35,33 +34,61 @@ class App extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const isEmpty = newTask => {
+      if (!newTask.task) {
+        console.log(newTask.task);
+        return alert("You need a task name");
+      }
+      return newTask.task;
+    };
+
     const newTask = {
-      task: this.state.newTodo.task,
+      task: isEmpty(this.state.newTodo),
       id: Date.now(),
       completed: false
     };
+
     this.setState(prevState => ({
       todo: [...prevState.todo, newTask]
     }));
-    this.setState(({
-      newTodo:{
-        task:''
+    this.setState({
+      newTodo: {
+        task: ""
       }
-    }))
+    });
   };
 
-  markComplete = (id) => {
+  markComplete = id => {
     this.state.todo.map(task => {
-      if(task.id === id){
-        this.setState({
+      if (task.id === id) {
+        return this.setState(prev => ({
           todo: [
-            ...this.state.todo,
-            !task.completed ? task.completed = true : task.completed = false
+            ...prev.todo,
+            !task.completed ? (task.completed = true) : (task.completed = false)
           ]
-        })
+        }));
       }
-      return true
-    })
+    return false});
+  };
+
+  clearComplete = e => {
+    const newArr = this.state.todo.filter(elm => !elm.completed);
+    let test = false
+    this.state.todo.forEach(task => {
+      if (task.completed) {
+        test = true
+      }
+    });
+
+    console.log(test);
+
+    if (test) {
+      this.setState(_ => ({
+        todo: [...newArr]
+      }));
+    } else {
+      alert("Please mark a completed task!");
+    }
   };
 
   render() {
@@ -69,7 +96,12 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList payload={this.state.todo} complete={this.markComplete} />
-        <TodoForm change={this.handleChange} submit={this.handleSubmit} formValue={this.state.newTodo.task}/>
+        <TodoForm
+          change={this.handleChange}
+          submit={this.handleSubmit}
+          formValue={this.state.newTodo.task}
+          clear={this.clearComplete}
+        />
       </div>
     );
   }
